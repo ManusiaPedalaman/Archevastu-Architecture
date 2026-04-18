@@ -4,8 +4,8 @@ import { useRef, useEffect, useState } from "react";
 import { useScroll, useTransform, useMotionValueEvent, motion, useSpring, AnimatePresence } from "framer-motion";
 import { Cinzel_Decorative } from "next/font/google";
 import Image from "next/image";
-import avLogoGold from "@/image/icon/Vector 6915.svg";
-import textLogoGold from "@/image/icon/Group 6356226.svg";
+import avLogoGold from "@/image/icon/Vector 6914.svg";
+import textLogoGold from "@/image/icon/Group 6356227.svg";
 import textLogoWhite from "@/image/icon/Group 6356228.svg";
 
 const cinzel = Cinzel_Decorative({ 

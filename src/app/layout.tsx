@@ -10,7 +10,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Acevashtu | Architecture",
+  title: "Archevastu | Architecture",
   description: "High-end architecture and interior design",
 };
 
