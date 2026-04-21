@@ -45,9 +45,13 @@ export default function TentangPage() {
              <h2 className="text-3xl md:text-5xl font-light mb-8">Filosofi Kami</h2>
              <div className="w-12 h-1 bg-white/20 mb-8" />
              <p className="text-white/60 text-lg leading-relaxed mb-6">
-               Di ArcheVastu, kami percaya bahwa arsitektur bukan sekadar tentang membangun struktur fisik, melainkan tentang menciptakan harmoni antara manusia, emosi, dan alam sekitarnya. 
+               At ArcheVastu, we believe that architecture is not merely about constructing physical structures, but about creating harmony between people, emotions, and the surrounding environment.
+                
+               Every line we draw and every material we choose is intended to elevate the quality of life for the occupants to a higher level (a high-end architectural experience). 
              </p>
              <p className="text-white/40 text-base leading-relaxed">
+               Di ArcheVastu, kami percaya bahwa arsitektur bukan sekadar tentang membangun struktur fisik, melainkan tentang menciptakan harmoni antara manusia, emosi, dan alam sekitarnya.
+               
                Setiap garis yang kami tarik dan setiap material yang kami pilih memiliki tujuan untuk mengangkat kualitas hidup penghuninya menuju tingkat yang lebih tinggi (high-end architectural experience).
              </p>
            </div>
