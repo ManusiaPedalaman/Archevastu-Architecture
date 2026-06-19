@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { useScroll, useTransform, useMotionValueEvent, motion, useSpring, AnimatePresence } from "framer-motion";
 import { Cinzel_Decorative } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 import avLogoGold from "@/image/icon/Vector 6914.svg";
 import textLogoGold from "@/image/icon/Group 6356227.svg";
 import textLogoWhite from "@/image/icon/Group 6356228.svg";
@@ -290,14 +291,16 @@ export default function SequenceScroll() {
           <h2 className="text-5xl md:text-[6vw] leading-none font-bold tracking-tighter mb-12 mix-blend-difference">
             Ready to Build?
           </h2>
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-10 py-5 bg-white text-black text-xl tracking-wide uppercase font-medium overflow-hidden rounded-full pointer-events-auto"
-          >
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Start Your Project</span>
-            <div className="absolute inset-0 bg-neutral-900 transform scale-y-0 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-y-100" />
-          </motion.button>
+          <Link href="/Project" className="pointer-events-auto">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-10 py-5 bg-white text-black text-xl tracking-wide uppercase font-medium overflow-hidden rounded-full cursor-pointer"
+            >
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Start Your Project</span>
+              <div className="absolute inset-0 bg-neutral-900 transform scale-y-0 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-y-100" />
+            </motion.div>
+          </Link>
         </motion.div>
       </div>
     </div>

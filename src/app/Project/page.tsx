@@ -4,59 +4,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import Link from "next/link";
+import { projects } from "@/data/projects";
 
 const categories = ["Semua", "Residensial", "Komersial", "Interior", "Lanskap"];
-
-const projects = [
-  {
-    id: 1,
-    title: "The Glass House",
-    category: "Residensial",
-    description: "Hunian modern dengan pencahayaan alami maksimal dan integrasi tanpa batas dengan alam sekitar.",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
-    tags: ["Modern", "Minimalist", "Glass"]
-  },
-  {
-    id: 2,
-    title: "Oasis Commercial Center",
-    category: "Komersial",
-    description: "Pusat perbelanjaan berkonsep open-air yang mengutamakan keberlanjutan dan sirkulasi udara alami.",
-    image: "https://images.unsplash.com/photo-1577495508048-b635879837f1?q=80&w=2016&auto=format&fit=crop",
-    tags: ["Urban", "Sustainable", "Retail"]
-  },
-  {
-    id: 3,
-    title: "Serenity Villa",
-    category: "Interior",
-    description: "Desain interior premium yang menggabungkan material kayu lokal dengan sentuhan marmer mewah.",
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2080&auto=format&fit=crop",
-    tags: ["Luxury", "Wood", "Marble"]
-  },
-  {
-    id: 4,
-    title: "Lumina Office Tower",
-    category: "Komersial",
-    description: "Gedung perkantoran futuristik dengan fasad kinetik yang merespons cahaya matahari.",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
-    tags: ["Corporate", "Futuristic", "Kinetic"]
-  },
-  {
-    id: 5,
-    title: "Zen Garden Estate",
-    category: "Lanskap",
-    description: "Desain lanskap meditatif yang menggabungkan elemen air, batu, dan flora tropis eksotis.",
-    image: "https://images.unsplash.com/photo-1558904541-efa843a96f0f?q=80&w=2072&auto=format&fit=crop",
-    tags: ["Zen", "Tropical", "Water"]
-  },
-  {
-    id: 6,
-    title: "Eco Retreat Haven",
-    category: "Residensial",
-    description: "Vila ramah lingkungan yang dibangun sepenuhnya dengan material daur ulang dan energi surya terintegrasi.",
-    image: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=2187&auto=format&fit=crop",
-    tags: ["Eco-friendly", "Solar", "Off-grid"]
-  }
-];
 
 export default function ProjectPage() {
   const [activeCategory, setActiveCategory] = useState("Semua");
@@ -153,13 +104,10 @@ export default function ProjectPage() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex items-center gap-4 mt-auto pt-6 border-t border-white/10">
-                    <button className="flex-1 bg-white text-black py-3 rounded-full text-xs font-semibold tracking-wider hover:bg-white/90 transition-colors">
-                      Visit Site
-                    </button>
-                    <button className="flex-1 border border-white/20 py-3 rounded-full text-xs font-semibold tracking-wider hover:border-white/50 transition-colors">
-                      Read More
-                    </button>
+                  <div className="flex items-center gap-4 mt-auto pt-6 border-t border-white/10 w-full">
+                    <Link href={`/Project/${project.id}`} className="flex-1 text-center border border-white/20 py-3 rounded-full text-xs font-semibold tracking-wider hover:border-white/50 transition-colors">
+                      View Details
+                    </Link>
                   </div>
                 </div>
               </motion.div>

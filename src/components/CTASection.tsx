@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function CTASection() {
   return (
@@ -9,14 +10,16 @@ export default function CTASection() {
         <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter leading-[0.9] uppercase mb-12">
           Let&apos;s Build It.
         </h2>
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="group relative px-12 py-6 bg-black text-white text-xl tracking-wide uppercase font-medium overflow-hidden rounded-full"
-        >
-          <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Contact Us</span>
-          <div className="absolute inset-0 bg-neutral-200 transform scale-y-0 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-y-100" />
-        </motion.button>
+        <Link href="/Kontak" className="inline-block">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative px-12 py-6 bg-black text-white text-xl tracking-wide uppercase font-medium overflow-hidden rounded-full cursor-pointer"
+          >
+            <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Contact Us</span>
+            <div className="absolute inset-0 bg-neutral-200 transform scale-y-0 origin-bottom transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-y-100" />
+          </motion.div>
+        </Link>
       </div>
       
       {/* Decorative background elements */}
