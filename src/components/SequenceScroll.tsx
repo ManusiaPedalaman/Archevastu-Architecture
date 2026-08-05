@@ -256,15 +256,11 @@ export default function SequenceScroll() {
           style={{ opacity: text2Opacity }} 
           className="absolute inset-0 flex flex-col items-start justify-center p-8 md:p-24 pointer-events-none"
         >
-          <h2 className="text-4xl md:text-7xl font-bold tracking-tight max-w-3xl leading-[1.4] text-black">
-            <span className="bg-white px-3 py-1 md:px-5 md:py-2 rounded-2xl md:rounded-3xl box-decoration-clone">
-              Shape Your Environment.
-            </span>
+          <h2 className="text-4xl md:text-7xl font-bold tracking-tight max-w-3xl leading-[1.4] text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.8)]">
+            Shape Your Environment.
           </h2>
-          <p className="text-lg md:text-2xl font-medium mt-6 max-w-md leading-relaxed text-neutral-800">
-            <span className="bg-white/90 px-2 py-1 md:px-4 md:py-2 rounded-xl md:rounded-2xl box-decoration-clone">
-              We design spaces that resonate with harmony, function, and cutting-edge aesthetics.
-            </span>
+          <p className="text-lg md:text-2xl font-medium mt-6 max-w-md leading-relaxed text-neutral-100 [text-shadow:0_2px_4px_rgba(0,0,0,0.8)]">
+            We design spaces that resonate with harmony, function, and cutting-edge aesthetics.
           </p>
         </motion.div>
 
@@ -272,15 +268,11 @@ export default function SequenceScroll() {
           style={{ opacity: text3Opacity }} 
           className="absolute inset-0 flex flex-col items-end justify-center p-8 md:p-24 text-right pointer-events-none"
         >
-          <h2 className="text-4xl md:text-7xl font-bold tracking-tight max-w-3xl leading-[1.4] text-black">
-            <span className="bg-white px-3 py-1 md:px-5 md:py-2 rounded-2xl md:rounded-3xl box-decoration-clone">
-              Beyond The Horizon.
-            </span>
+          <h2 className="text-4xl md:text-7xl font-bold tracking-tight max-w-3xl leading-[1.4] text-white [text-shadow:0_4px_8px_rgba(0,0,0,0.8)]">
+            Beyond The Horizon.
           </h2>
-          <p className="text-lg md:text-2xl font-medium mt-6 max-w-md ml-auto leading-relaxed text-neutral-800">
-            <span className="bg-white/90 px-2 py-1 md:px-4 md:py-2 rounded-xl md:rounded-2xl box-decoration-clone">
-              Pushing boundaries of what's possible with modern materials and timeless concepts.
-            </span>
+          <p className="text-lg md:text-2xl font-medium mt-6 max-w-md ml-auto leading-relaxed text-neutral-100 [text-shadow:0_2px_4px_rgba(0,0,0,0.8)]">
+            Pushing boundaries of what's possible with modern materials and timeless concepts.
           </p>
         </motion.div>
 
