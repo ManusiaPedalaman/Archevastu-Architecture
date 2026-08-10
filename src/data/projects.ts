@@ -1,3 +1,15 @@
+import rt2_3Jpg from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_3 - Photo.jpg";
+import rt2_3Webp from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_3 - Photo.webp";
+import rt2_4Jpg from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_4 - Photo.jpg";
+import rt2_4Webp from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_4 - Photo.webp";
+
+const getMediaUrl = (media: any): string => {
+  if (typeof media === "string") return media;
+  if (media && typeof media === "object" && "src" in media) return media.src;
+  if (media && typeof media === "object" && "default" in media) return media.default;
+  return String(media);
+};
+
 export interface Project {
   id: number;
   title: string;
@@ -108,16 +120,14 @@ export const projects: Project[] = [
     title: "Zen Garden Estate",
     category: "Lanskap",
     description: "Desain lanskap meditatif yang menggabungkan elemen air, batu, dan flora tropis eksotis.",
-    image: "https://images.unsplash.com/photo-1558904541-efa843a96f0f?q=80&w=2072&auto=format&fit=crop",
+    image: getMediaUrl(rt2_3Webp),
     tags: ["Zen", "Tropical", "Water"],
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-house-surrounded-by-nature-42044-large.mp4",
+    videoUrl: "/videos/ANIMASI.mp4",
     renderPhotos: [
-      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=2069&auto=format&fit=crop"
+      getMediaUrl(rt2_3Webp),
+      getMediaUrl(rt2_3Jpg),
+      getMediaUrl(rt2_4Webp),
+      getMediaUrl(rt2_4Jpg),
     ],
     story: "Zen Garden Estate dirancang sebagai oasis meditatif di tengah hiruk-pikuk wilayah urban. Proyek ini memadukan prinsip taman Zen Jepang kuno dengan keanekaragaman hayati vegetasi tropis Indonesia. Aliran air bertingkat dirancang secara akustik untuk menyamarkan kebisingan perkotaan di sekitarnya, sedangkan pemilihan batuan sungai andesit lokal memberikan tekstur bumi yang kuat dan abadi. Setiap sudut taman dirancang untuk memberikan sudut pandang reflektif yang unik seiring perubahan musim dan waktu.",
     location: "Sentul, Indonesia",

@@ -12,6 +12,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Archevastu | Architecture",
   description: "High-end architecture and interior design",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
