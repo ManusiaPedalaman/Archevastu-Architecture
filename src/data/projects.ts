@@ -3,6 +3,21 @@ import rt2_3Webp from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/
 import rt2_4Jpg from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_4 - Photo.jpg";
 import rt2_4Webp from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_4 - Photo.webp";
 
+import jengki1Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/1.3.webp";
+import jengki2Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/2.4.webp";
+import jengki3Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/3.2.webp";
+import jengki4Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/4.1.webp";
+import jengki5Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/5.1.webp";
+
+import lcalmeScene1 from "@/image/img/Residensial/L_Calme/Scene 1.webp";
+import lcalmeScene2 from "@/image/img/Residensial/L_Calme/Scene 2.webp";
+import lcalmeScene3 from "@/image/img/Residensial/L_Calme/Scene 3.webp";
+import lcalmeScene4 from "@/image/img/Residensial/L_Calme/Scene 4.webp";
+import lcalmeScene5 from "@/image/img/Residensial/L_Calme/Scene 5.webp";
+import lcalmeScene6 from "@/image/img/Residensial/L_Calme/Scene 6.webp";
+import lcalmeA01 from "@/image/img/Residensial/L_Calme/A-01.webp";
+import lcalmeA02 from "@/image/img/Residensial/L_Calme/A-02.webp";
+
 const getMediaUrl = (media: any): string => {
   if (typeof media === "string") return media;
   if (media && typeof media === "object" && "src" in media) return media.src;
@@ -29,25 +44,24 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "The Glass House",
+    title: "The Modern Jengki",
     category: "Residensial",
-    description: "Hunian modern dengan pencahayaan alami maksimal dan integrasi tanpa batas dengan alam sekitar.",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
-    tags: ["Modern", "Minimalist", "Glass"],
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-contemporary-house-exterior-with-swimming-pool-42037-large.mp4",
+    description: "Reinterpretasi kontemporer gaya arsitektur Jengki pasca-kolonial di atas lahan 60 m² yang merespons iklim tropis Yogyakarta.",
+    image: getMediaUrl(jengki1Webp),
+    tags: ["Jengki", "Asimetris", "Modern Tropis"],
+    videoUrl: "/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/ANIMASI 6S.mp4",
     renderPhotos: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2080&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1974&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2070&auto=format&fit=crop"
+      getMediaUrl(jengki1Webp),
+      getMediaUrl(jengki2Webp),
+      getMediaUrl(jengki3Webp),
+      getMediaUrl(jengki4Webp),
+      getMediaUrl(jengki5Webp),
     ],
-    story: "The Glass House lahir dari visi untuk menciptakan dialog harmonis antara ruang privat dan alam liar. Menggunakan teknologi kaca rendah emisivitas (low-E glass) berkinerja tinggi, struktur ini menghilangkan dinding pembatas tradisional tanpa mengorbankan kenyamanan termal atau privasi penghuni. Dengan mengintegrasikan sistem pemanas pasif dan ventilasi silang yang cermat, rumah ini beroperasi dengan konsumsi energi minimal, menawarkan pengalaman hidup mewah yang selaras dengan siklus alam harian.",
-    location: "Bandung, Indonesia",
+    story: "The Jengki House lahir dari sebuah tantangan untuk merespons keterbatasan lahan perkotaan modern tanpa kehilangan identitas historis yang kuat. Berdiri di atas tapak seluas 60 m², proyek residensial untuk Mr. J di Yogyakarta ini merupakan sebuah selebrasi visual sekaligus reinterpretasi kontemporer terhadap arsitektur \"Jengki\"—gaya ikonik pasca-kolonial Indonesia yang terkenal dengan semangat kebebasan, bentuk-bentuk asimetris, dan eksperimentasi struktur yang berani. Desain ini mematahkan kekakuan geometri arsitektur modern konvensional. Atap pelana yang berselisih dan memiliki kemiringan ekstrem tidak hanya berfungsi secara estetika sebagai focal point yang ekspresif, tetapi juga dirancang secara fungsional untuk mengalirkan curah hujan tinggi khas iklim tropis Yogyakarta secara optimal. Fasad bangunan didominasi oleh perpaduan dinamis antara dinding panel putih yang bersih, aksen bata ekspos lengkung yang masif, serta permainan tiang-tiang struktural miring yang memberikan impresi visual yang kokoh sekaligus melayang.",
+    location: "Yogyakarta, Indonesia",
     year: "2025",
-    area: "450 m²",
-    client: "Private Family"
+    area: "60 m²",
+    client: "Mr. J"
   },
   {
     id: 2,
@@ -137,24 +151,26 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: "Eco Retreat Haven",
+    title: "L'Calme",
     category: "Residensial",
-    description: "Vila ramah lingkungan yang dibangun sepenuhnya dengan material daur ulang dan energi surya terintegrasi.",
-    image: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=2187&auto=format&fit=crop",
-    tags: ["Eco-friendly", "Solar", "Off-grid"],
+    description: "Hunian modern seluas 72 m² berbasis geometri kontemporer dengan second skin kayu dan vegetasi asri di Surabaya.",
+    image: getMediaUrl(lcalmeScene1),
+    tags: ["Minimalis", "Second Skin", "Kontemporer"],
     videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-building-interior-architecture-42036-large.mp4",
     renderPhotos: [
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=2075&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1472214222541-d510753a4907?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2000&auto=format&fit=crop"
+      getMediaUrl(lcalmeScene1),
+      getMediaUrl(lcalmeScene2),
+      getMediaUrl(lcalmeScene3),
+      getMediaUrl(lcalmeScene4),
+      getMediaUrl(lcalmeScene5),
+      getMediaUrl(lcalmeScene6),
+      getMediaUrl(lcalmeA01),
+      getMediaUrl(lcalmeA02),
     ],
-    story: "Eco Retreat Haven menantang gagasan arsitektur mewah konvensional. Struktur hunian ini sepenuhnya dibangun menggunakan material bersumber ramah lingkungan, termasuk bambu laminasi struktural, semen bersertifikat hijau, dan kayu reklamasi. Menggunakan jaringan atap fotovoltaik surya berskala besar dengan sistem penyimpanan baterai tesla, vila ini mampu beroperasi secara mandiri tanpa terhubung ke jaringan listrik utama. Sistem pengelolaan air limbah liminasi abu-abu berbasis biologis juga terintegrasi untuk menyiram tanaman lokal di sekitarnya.",
-    location: "Lombok, Indonesia",
-    year: "2026",
-    area: "550 m²",
-    client: "Green Eco Resort"
+    story: "L'Calme : Manifestasi Ketenangan dalam Garis Presisi. Diambil dari bahasa Prancis yang berarti 'tenang' atau 'sang ketenangan', L'Calme dirancang bukan sekadar sebagai struktur fisik hunian, melainkan sebuah ruang perlindungan untuk menjeda hiruk-pikuk kehidupan. Berdiri di atas lahan seluas 72 m² di Surabaya, proyek residensial ini merespons iklim urban yang padat dengan menghadirkan sebuah oase mikro yang intim, damai, dan selaras dengan ritme alam di sekitarnya. Mengusung filosofi 'Pure lines, Carved into spaces!', fasad bangunan tampil memukau melalui permainan geometri kontemporer yang berani namun tetap terasa teduh. Bentuk atap asimetris yang tajam berpadu apik dengan panel-panel vertikal bermotif kayu hangat, menciptakan lapisan privasi (second skin) yang melindungi interior rumah dari terik matahari Surabaya tanpa memutus sirkulasi udara dan cahaya alami.",
+    location: "Surabaya, Indonesia",
+    year: "2025",
+    area: "72 m²",
+    client: "Mrs. C"
   }
 ];
