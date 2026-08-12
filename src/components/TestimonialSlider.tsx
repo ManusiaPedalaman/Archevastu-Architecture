@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
-  { quote: "Acevashtu transformed our vision into a physical reality that exceeded all expectations.", author: "Elena R., CEO of Nexus" },
+  { quote: "ArcheVastu transformed our vision into a physical reality that exceeded all expectations.", author: "Elena R., CEO of Nexus" },
   { quote: "Their attention to the interplay of light and material created a space we truly desire.", author: "Marcus T., Hospitality Director" },
   { quote: "A rare mastery of both the monumental and the intimate. Truly visionary.", author: "Sarah W., Private Client" }
 ];

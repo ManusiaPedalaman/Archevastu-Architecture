@@ -17,8 +17,8 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Right Section - Links & Connect */}
-        <div className="flex gap-16 md:gap-24">
+        {/* Right Section - Links, Connect & Contact */}
+        <div className="flex flex-wrap gap-12 md:gap-16">
           {/* Links Column */}
           <div className="flex flex-col gap-6">
             <h3 className="text-base font-medium text-white tracking-wide">Links</h3>
@@ -39,6 +39,15 @@ export default function Footer() {
               <li><a href="https://www.linkedin.com/company/cv-archevastu/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a></li>
               <li><a href="https://www.youtube.com/@archevastu?si=i5Z_QTRedZZyBPOC" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">YouTube</a></li>
             </ul>
+          </div>
+
+          {/* Contact Column */}
+          <div className="flex flex-col gap-6">
+            <h3 className="text-base font-medium text-white tracking-wide">Contact</h3>
+            <div className="flex flex-col gap-3 text-sm text-white/60 font-light">
+              <a href="mailto:archevastu@gmail.com" className="hover:text-white transition-colors">archevastu@gmail.com</a>
+              <a href="tel:+6287750881867" className="hover:text-white transition-colors">+62 877 5088 1867</a>
+            </div>
           </div>
         </div>
 

@@ -28,7 +28,7 @@ export default function AboutReveal() {
     offset: ["start 0.85", "end 0.5"]
   });
 
-  const paragraph = "We are Acevashtu, pioneers of architectural expression. Our mission is to sculpt spaces that defy convention, merging raw materiality with ethereal light to craft environments that ignite the human spirit.";
+  const paragraph = "We are ArcheVastu, pioneers of architectural expression. Our mission is to sculpt spaces that defy convention, merging raw materiality with ethereal light to craft environments that ignite the human spirit.";
   
   const words = paragraph.split(" ");
 

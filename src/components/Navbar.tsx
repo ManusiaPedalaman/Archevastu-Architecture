@@ -177,8 +177,8 @@ export default function Navbar() {
                 transition={{ duration: 0.8, delay: 0.7 }}
               >
                 <div className="text-white mb-2 font-medium">Contact</div>
-                <p>hello@acevashtu.com</p>
-                <p>+62 812 3456 7890</p>
+                <a href="mailto:archevastu@gmail.com" className="block hover:text-white transition-colors">archevastu@gmail.com</a>
+                <a href="tel:+6287750881867" className="block hover:text-white transition-colors">+62 877 5088 1867</a>
               </motion.div>
             </div>
           </motion.div>
