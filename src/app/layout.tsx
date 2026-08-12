@@ -10,8 +10,17 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Archevastu | Architecture",
-  description: "High-end architecture and interior design",
+  title: "Archevastu Architecture | Studio Arsitektur & Desain Interior",
+  description: "ArcheVastu Architecture - Studio arsitektur & desain interior profesional di Indonesia. Spesialis hunian residensial, komersial, dan lanskap modern.",
+  keywords: ["Archevastu", "Archevastu Architecture", "Jasa Arsitek", "Desain Interior", "Arsitek Indonesia", "The Modern Jengki", "L'Calme"],
+  openGraph: {
+    title: "Archevastu Architecture | Studio Arsitektur & Desain Interior",
+    description: "Studio arsitektur & desain interior profesional di Indonesia. Spesialis hunian residensial, komersial, dan lanskap modern.",
+    url: "https://archevastu-architecture.my.id",
+    siteName: "Archevastu Architecture",
+    locale: "id_ID",
+    type: "website",
+  },
   icons: {
     icon: "/icon.svg",
   },
