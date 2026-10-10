@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { projects } from "@/data/projects";
 
 const categories = ["Semua", "Residensial", "Komersial", "Interior", "Lanskap"];
@@ -73,10 +74,13 @@ export default function ProjectPage() {
                 {/* Image Container */}
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                  <img 
+                  <Image 
                     src={project.image} 
                     alt={project.title}
-                    className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000 ease-[0.23,1,0.32,1]"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000 ease-[0.23,1,0.32,1]"
+                    loading="lazy"
                   />
                   <div className="absolute top-4 left-4 z-20">
                     <span className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] uppercase tracking-wider text-white border border-white/10">

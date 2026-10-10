@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -184,10 +185,13 @@ export default function ProjectDetailPage() {
                 className="group relative aspect-square bg-neutral-900 rounded-2xl overflow-hidden border border-white/5 shadow-lg"
               >
                 <div className="absolute inset-0 bg-black/40 z-10 group-hover:bg-black/10 transition-colors duration-500" />
-                <img 
+                <Image 
                   src={photoUrl} 
                   alt={`${project.title} Render ${index + 1}`} 
-                  className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  className="object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 <div className="absolute bottom-6 left-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="px-3 py-1 bg-black/75 backdrop-blur-md rounded-full text-[10px] uppercase tracking-wider text-white border border-white/10">

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import ArchitectureImg from "../image/img/2.4.webp";
 
 export default function BentoSection() {
@@ -18,7 +19,14 @@ export default function BentoSection() {
               className="relative bg-neutral-900 rounded-3xl overflow-hidden group p-8 flex flex-col justify-end h-full cursor-pointer"
             >
               <div className="absolute inset-0 bg-black/40 z-10 group-hover:bg-black/20 transition-colors duration-500" />
-              <img src={ArchitectureImg.src} alt="Architecture" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image 
+                src={ArchitectureImg} 
+                alt="Architecture" 
+                fill 
+                sizes="(max-width: 768px) 100vw, 66vw" 
+                className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                loading="lazy"
+              />
               <div className="relative z-20">
                 <h3 className="text-3xl font-bold tracking-tight mb-2">Architecture</h3>
                 <p className="text-white/80 max-w-sm">Designing monumental structures that define the modern skyline.</p>
@@ -49,7 +57,14 @@ export default function BentoSection() {
               className="relative bg-neutral-900 rounded-3xl overflow-hidden group p-8 flex flex-col justify-end h-full cursor-pointer"
             >
               <div className="absolute inset-0 bg-black/40 z-10 group-hover:bg-black/20 transition-colors duration-500" />
-              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop" alt="Interior" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image 
+                src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1200&auto=format&fit=crop" 
+                alt="Interior" 
+                fill 
+                sizes="(max-width: 768px) 100vw, 33vw" 
+                className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                loading="lazy"
+              />
               <div className="relative z-20">
                 <h3 className="text-2xl font-bold tracking-tight mb-2">Interiors</h3>
                 <p className="text-white/80 text-sm">Refining spaces for the human scale.</p>

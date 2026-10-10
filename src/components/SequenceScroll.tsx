@@ -39,9 +39,11 @@ export default function SequenceScroll() {
   const text3Opacity = useTransform(smoothProgress, [0.55, 0.65, 0.75, 0.85], [0, 1, 1, 0]);
   const text4Opacity = useTransform(smoothProgress, [0.85, 0.95, 1], [0, 1, 1]);
 
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
   const imagesLoadedRef = useRef(0);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const lastIndexRef = useRef<number>(-1);
+  const rafIdRef = useRef<number | null>(null);
 
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -51,9 +53,72 @@ export default function SequenceScroll() {
   });
   const [displayProgress, setDisplayProgress] = useState(0);
 
+  // Setup canvas resolution and cached context once
   useEffect(() => {
-    imagesLoadedRef.current = imagesLoaded;
-  }, [imagesLoaded]);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.width = 1920;
+    canvas.height = 1080;
+    ctxRef.current = canvas.getContext("2d", { alpha: false, desynchronized: true });
+  }, []);
+
+  const drawFrame = (index: number) => {
+    if (index === lastIndexRef.current) return;
+    const img = imagesRef.current[index - 1];
+    if (!img || !img.complete || img.naturalWidth === 0) return;
+    
+    const ctx = ctxRef.current;
+    if (!ctx) return;
+
+    ctx.drawImage(img, 0, 0, 1920, 1080);
+    lastIndexRef.current = index;
+  };
+
+  const scheduleDraw = (index: number) => {
+    const clampedIndex = Math.min(Math.max(1, index), frameCount);
+    if (clampedIndex === lastIndexRef.current) return;
+
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
+    }
+
+    rafIdRef.current = requestAnimationFrame(() => {
+      drawFrame(clampedIndex);
+      rafIdRef.current = null;
+    });
+  };
+
+  // Preload sequence images with async decoding and ref storage
+  useEffect(() => {
+    const loadedImages: HTMLImageElement[] = [];
+
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new window.Image();
+      img.decoding = "async";
+
+      const handleLoad = () => {
+        imagesLoadedRef.current++;
+        if (i === 1) {
+          // Render frame 1 as soon as it's available
+          drawFrame(1);
+        }
+      };
+
+      img.onload = handleLoad;
+      img.onerror = handleLoad;
+
+      const frameNumber = i.toString().padStart(3, "0");
+      img.src = `/image/sequence/ezgif-frame-${frameNumber}.jpg`;
+      loadedImages.push(img);
+    }
+    imagesRef.current = loadedImages;
+
+    return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     // Apabila sudah diload sebelumnya pada sesi SPA ini, jangan tampilkan loading lagi
@@ -72,8 +137,8 @@ export default function SequenceScroll() {
     }
 
     // Always show loading sequence on mount (e.g. on every refresh)
-    const duration = 2500; // 2.5 seconds min duration
-    const updateInterval = 30; // 30ms per tick
+    const duration = 2200; // 2.2 seconds min duration
+    const updateInterval = 25; // 25ms per tick
     const totalTicks = duration / updateInterval;
     let currentTick = 0;
 
@@ -90,81 +155,33 @@ export default function SequenceScroll() {
       const currentDisplay = Math.min(timeProgress, actualProgress);
       setDisplayProgress(currentDisplay);
 
-      if (timeProgress >= 100 && actualProgress >= 100) {
+      if (timeProgress >= 100 && actualProgress >= 90) {
         clearInterval(timer);
         setTimeout(() => {
-          // Ensure we are at the top before revealing the content
           window.scrollTo(0, 0);
+          drawFrame(1);
           setIsLoading(false);
-        }, 400); // Wait a split second at 100%
+        }, 300);
       }
     }, updateInterval);
 
     return () => clearInterval(timer);
   }, [isLoading]);
 
-  useEffect(() => {
-    const loadedImages: HTMLImageElement[] = [];
-    let loaded = 0;
-
-    for (let i = 1; i <= frameCount; i++) {
-      const img = new window.Image();
-      const handleLoad = () => {
-        loaded++;
-        setImagesLoaded(loaded);
-      };
-
-      img.onload = handleLoad;
-      img.onerror = handleLoad;
-
-      const frameNumber = i.toString().padStart(3, "0");
-      img.src = `/image/sequence/ezgif-frame-${frameNumber}.jpg`;
-      // Load explicitly at full priority via browser mechanism
-
-      loadedImages.push(img);
-    }
-    setImages(loadedImages);
-  }, []);
-
-  const drawImage = (index: number) => {
-    if (images.length === 0 || !images[index - 1]) return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d", { alpha: false });
-    if (!ctx) return;
-
-    const img = images[index - 1];
-    if (!img.complete || img.naturalWidth === 0) return;
-
-    // We MUST use naturalWidth to get the true resolution of the image (1920x1080)
-    // To prevent squishing, we set canvas internal resolution to the exact image resolution!
-    if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-    }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-  };
-
-  // Render paksa frame pertama saat sudah siap
-  useEffect(() => {
-    if (imagesLoaded > 0 && images[0]?.complete) {
-      drawImage(Math.round(currentIndex.get()));
-    }
-  }, [imagesLoaded, images, currentIndex]);
-
   useMotionValueEvent(currentIndex, "change", (latest) => {
-    drawImage(Math.round(latest));
+    scheduleDraw(Math.round(latest));
   });
 
-  // Handle window resizing to force re-evaluation of CSS object-cover
+  // Handle window resizing without re-rendering everything
   useEffect(() => {
-    const handleResize = () => drawImage(Math.round(currentIndex.get()));
+    const handleResize = () => {
+      if (lastIndexRef.current > 0) {
+        drawFrame(lastIndexRef.current);
+      }
+    };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [images]);
+  }, []);
 
   return (
     <div ref={containerRef} className="relative h-[400vh] w-full bg-black">

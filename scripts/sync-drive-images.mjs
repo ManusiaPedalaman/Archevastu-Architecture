@@ -156,9 +156,11 @@ async function processDriveSync() {
       if (needsCopy) {
         console.log(`   ✨ Memproses gambar baru: ${file} -> ${targetFileName}`);
         try {
-          if (config.autoConvertWebp && path.extname(file).toLowerCase() !== '.webp') {
-            await sharp(sourcePath)
-              .webp({ quality: config.quality })
+          const inputBytes = fs.readFileSync(sourcePath);
+          if (config.autoConvertWebp) {
+            await sharp(inputBytes)
+              .resize({ width: 1920, withoutEnlargement: true })
+              .webp({ quality: config.quality || 80, effort: 4 })
               .toFile(targetFilePath);
           } else {
             fs.copyFileSync(sourcePath, targetFilePath);

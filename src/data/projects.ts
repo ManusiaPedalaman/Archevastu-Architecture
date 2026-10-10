@@ -139,9 +139,7 @@ export const projects: Project[] = [
     videoUrl: "/videos/ANIMASI.mp4",
     renderPhotos: [
       getMediaUrl(rt2_3Webp),
-      getMediaUrl(rt2_3Jpg),
       getMediaUrl(rt2_4Webp),
-      getMediaUrl(rt2_4Jpg),
     ],
     story: "Zen Garden Estate dirancang sebagai oasis meditatif di tengah hiruk-pikuk wilayah urban. Proyek ini memadukan prinsip taman Zen Jepang kuno dengan keanekaragaman hayati vegetasi tropis Indonesia. Aliran air bertingkat dirancang secara akustik untuk menyamarkan kebisingan perkotaan di sekitarnya, sedangkan pemilihan batuan sungai andesit lokal memberikan tekstur bumi yang kuat dan abadi. Setiap sudut taman dirancang untuk memberikan sudut pandang reflektif yang unik seiring perubahan musim dan waktu.",
     location: "Sentul, Indonesia",
