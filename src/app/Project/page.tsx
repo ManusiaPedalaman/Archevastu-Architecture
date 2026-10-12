@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { projects } from "@/data/projects";
+import { Maximize2, X } from "lucide-react";
 
 const categories = ["Semua", "Residensial", "Komersial", "Interior", "Lanskap"];
 
@@ -15,12 +16,26 @@ function ProjectContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
   const [activeCategory, setActiveCategory] = useState("Semua");
+  const [previewImage, setPreviewImage] = useState<{ url: string; title: string; category: string } | null>(null);
 
   useEffect(() => {
     if (categoryParam && categories.includes(categoryParam)) {
       setActiveCategory(categoryParam);
     }
   }, [categoryParam]);
+
+  useEffect(() => {
+    if (!previewImage) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPreviewImage(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "auto";
+    };
+  }, [previewImage]);
 
   const filteredProjects = projects.filter(project => 
     activeCategory === "Semua" ? true : project.category === activeCategory
@@ -86,7 +101,7 @@ function ProjectContent() {
                 >
                   {/* Image Container */}
                   <div className="relative w-full aspect-[4/3] overflow-hidden">
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                    {/* Gambar selalu terang & jernih di semua perangkat (laptop, tablet, HP) */}
                     <Image 
                       src={project.image} 
                       alt={project.title}
@@ -100,6 +115,21 @@ function ProjectContent() {
                         {project.category}
                       </span>
                     </div>
+
+                    {/* Tombol Perbesar / Review Icon */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setPreviewImage({ url: project.image, title: project.title, category: project.category });
+                      }}
+                      className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:text-black hover:bg-white transition-all shadow-md active:scale-95 cursor-pointer"
+                      title="Perbesar gambar"
+                      aria-label="Perbesar gambar"
+                    >
+                      <Maximize2 className="w-4 h-4" />
+                    </button>
                   </div>
 
                   {/* Content */}
@@ -133,6 +163,68 @@ function ProjectContent() {
           </AnimatePresence>
         </motion.div>
       </section>
+
+      {/* Lightbox Image Preview Modal */}
+      <AnimatePresence>
+        {previewImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-between p-4 md:p-6"
+            onClick={() => setPreviewImage(null)}
+          >
+            {/* Top Bar */}
+            <div 
+              className="w-full max-w-7xl flex items-center justify-between z-50 text-white"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 bg-white/10 rounded-full text-xs uppercase tracking-widest text-white/80 border border-white/10">
+                  {previewImage.category}
+                </span>
+                <span className="text-white/80 text-sm md:text-base font-light tracking-wide">
+                  {previewImage.title}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPreviewImage(null)}
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white hover:text-black flex items-center justify-center text-white transition-all border border-white/20 active:scale-95 cursor-pointer"
+                title="Tutup (Esc)"
+              >
+                <X className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+            </div>
+
+            {/* Center Image */}
+            <div 
+              className="relative w-full max-w-6xl flex-grow flex items-center justify-center my-4 overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative w-full h-[70vh] md:h-[78vh] flex items-center justify-center">
+                <Image
+                  src={previewImage.url}
+                  alt={previewImage.title}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Bottom Info */}
+            <div 
+              className="w-full max-w-md text-center z-50 text-xs md:text-sm text-white/50"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Klik di luar gambar atau tombol X untuk menutup
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </main>
