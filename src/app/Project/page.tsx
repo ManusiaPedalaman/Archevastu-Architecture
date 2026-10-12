@@ -172,16 +172,16 @@ function ProjectContent() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-between p-4 md:p-6"
+            className="fixed inset-0 z-[100] bg-[#070707]/98 backdrop-blur-2xl flex flex-col items-center justify-between p-4 md:p-8"
             onClick={() => setPreviewImage(null)}
           >
             {/* Top Bar */}
             <div 
-              className="w-full max-w-7xl flex items-center justify-between z-50 text-white"
+              className="w-full max-w-7xl flex items-center justify-between z-10 text-white pt-2 md:pt-0"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs uppercase tracking-widest text-white/80 border border-white/10">
+              <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                <span className="px-3.5 py-1.5 bg-white/10 rounded-full text-xs font-medium uppercase tracking-widest text-white border border-white/15">
                   {previewImage.category}
                 </span>
                 <span className="text-white/80 text-sm md:text-base font-light tracking-wide">
@@ -191,7 +191,7 @@ function ProjectContent() {
               <button
                 type="button"
                 onClick={() => setPreviewImage(null)}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white hover:text-black flex items-center justify-center text-white transition-all border border-white/20 active:scale-95 cursor-pointer"
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white hover:text-black flex items-center justify-center text-white transition-all border border-white/20 active:scale-95 cursor-pointer flex-shrink-0"
                 title="Tutup (Esc)"
               >
                 <X className="w-5 h-5 md:w-6 md:h-6" />
