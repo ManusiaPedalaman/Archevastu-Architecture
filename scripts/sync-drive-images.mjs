@@ -10,9 +10,9 @@ const rootDir = path.resolve(__dirname, '..');
 // Config file path
 const configPath = path.join(rootDir, 'drive-sync-config.json');
 let config = {
-  driveFolderPath: "C:\\Users\\Alan Nuril\\Google Drive\\Archevastu_Client_Uploads",
+  driveFolderPath: "G:\\My Drive\\WEB DATA",
   autoConvertWebp: true,
-  quality: 85,
+  quality: 80,
   defaultCategory: "Residensial"
 };
 
@@ -39,22 +39,6 @@ console.log("==========================================");
 console.log(`📂 Scanning Drive Folder: "${config.driveFolderPath}"`);
 console.log(`🖼️  Target Image Root:   "${targetImgRootDir}"`);
 
-if (!fs.existsSync(config.driveFolderPath)) {
-  console.log(`\n❌ Folder Drive tidak ditemukan pada path: "${config.driveFolderPath}"`);
-  console.log(`👉 Silakan sesuaikan path folder pada file 'drive-sync-config.json' atau buat folder tersebut di Google Drive lokal Anda.\n`);
-  // Create sample template folder structure if user wants to test
-  const sampleDir = config.driveFolderPath;
-  try {
-    fs.mkdirSync(sampleDir, { recursive: true });
-    console.log(`✅ Berhasil membuat folder sampel di: "${sampleDir}"`);
-  } catch (e) {
-    // Ignore error if permission denied
-  }
-}
-
-// Read current projects.ts
-let projectsContent = fs.readFileSync(projectsFilePath, 'utf-8');
-
 // Helper to sanitize variable names for imports
 function sanitizeVarName(str) {
   return str.replace(/[^a-zA-Z0-9]/g, '_').replace(/^([0-9])/, '_$1');
@@ -68,82 +52,132 @@ function sanitizeFolderName(str) {
 // Supported image extensions
 const VALID_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tiff'];
 
-async function processDriveSync() {
-  if (!fs.existsSync(config.driveFolderPath)) {
-    console.log("⏹️ Prosessi dibatalkan karena folder Drive belum tersedia.");
-    return;
-  }
+// Smart folder collector: supports both direct project folders and categorized folders (LANSKAP, RESIDENSIAL, KOMERSIAL)
+function collectProjectFolders(baseDir) {
+  const list = [];
+  if (!fs.existsSync(baseDir)) return list;
 
-  const driveEntries = fs.readdirSync(config.driveFolderPath, { withFileTypes: true });
-  const driveSubdirs = driveEntries.filter(entry => entry.isDirectory());
+  const entries = fs.readdirSync(baseDir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const fullPath = path.join(baseDir, entry.name);
 
-  if (driveSubdirs.length === 0) {
-    console.log("\nℹ️ Tidak ada subfolder proyek di dalam folder Drive.");
-    console.log("💡 Tips: Buat subfolder di Google Drive dengan nama proyek (contoh: 'The Modern Jengki' atau 'L_Calme') lalu masukkan gambar di dalamnya.");
-    return;
-  }
-
-  let totalNewImages = 0;
-
-  for (const dirEntry of driveSubdirs) {
-    const driveProjectFolderName = dirEntry.name;
-    const driveProjectPath = path.join(config.driveFolderPath, driveProjectFolderName);
-    
-    console.log(`\n🔍 Memeriksa folder proyek Drive: "${driveProjectFolderName}"...`);
-
-    // Determine category and project destination directory
-    // We check existing image folders or default category
-    let category = config.defaultCategory;
-    let targetProjectDir = path.join(targetImgRootDir, category, sanitizeFolderName(driveProjectFolderName));
-
-    // Check if category exists in project folders
-    const possibleCategories = fs.existsSync(targetImgRootDir) ? fs.readdirSync(targetImgRootDir) : [];
-    let matchedCategoryDir = null;
-
-    for (const cat of possibleCategories) {
-      const catPath = path.join(targetImgRootDir, cat);
-      if (fs.statSync(catPath).isDirectory()) {
-        const subFolders = fs.readdirSync(catPath);
-        for (const sub of subFolders) {
-          if (sub.toLowerCase().includes(driveProjectFolderName.toLowerCase()) || driveProjectFolderName.toLowerCase().includes(sub.toLowerCase())) {
-            matchedCategoryDir = cat;
-            targetProjectDir = path.join(catPath, sub);
-            break;
-          }
-        }
-      }
-      if (matchedCategoryDir) break;
-    }
-
-    if (!fs.existsSync(targetProjectDir)) {
-      fs.mkdirSync(targetProjectDir, { recursive: true });
-      console.log(`📁 Membuat folder gambar proyek baru: "${targetProjectDir}"`);
-    }
-
-    // Read all image files in Drive project subfolder
-    const imageFiles = fs.readdirSync(driveProjectPath).filter(file => {
-      const ext = path.extname(file).toLowerCase();
-      return VALID_EXTENSIONS.includes(ext);
-    });
-
-    if (imageFiles.length === 0) {
-      console.log(`   - Tidak ada file gambar baru di folder "${driveProjectFolderName}".`);
+    // Check if this folder directly contains image files
+    let subFiles = [];
+    try {
+      subFiles = fs.readdirSync(fullPath, { withFileTypes: true });
+    } catch (e) {
       continue;
     }
 
-    let projectImagesAdded = [];
+    const hasImagesDirectly = subFiles.some(f => !f.isDirectory() && VALID_EXTENSIONS.includes(path.extname(f.name).toLowerCase()));
+
+    if (hasImagesDirectly) {
+      list.push({
+        projectName: entry.name,
+        projectPath: fullPath,
+        category: config.defaultCategory
+      });
+    } else {
+      // Check if this is a Category folder (e.g. LANSKAP, RESIDENSIAL, KOMERSIAL) containing project subfolders
+      const rawCat = entry.name.toLowerCase();
+      let detectedCategory = config.defaultCategory;
+      if (rawCat.includes('lanskap')) detectedCategory = 'Lanskap';
+      else if (rawCat.includes('residensial')) detectedCategory = 'Residensial';
+      else if (rawCat.includes('komersial')) detectedCategory = 'Komersial';
+      else if (rawCat.includes('interior')) detectedCategory = 'Interior';
+
+      for (const sub of subFiles) {
+        if (!sub.isDirectory()) continue;
+        const subPath = path.join(fullPath, sub.name);
+        let projectFiles = [];
+        try {
+          projectFiles = fs.readdirSync(subPath, { withFileTypes: true });
+        } catch (e) {
+          continue;
+        }
+
+        const projectHasMedia = projectFiles.some(f => !f.isDirectory() && (VALID_EXTENSIONS.includes(path.extname(f.name).toLowerCase()) || path.extname(f.name).toLowerCase() === '.mp4'));
+
+        if (projectHasMedia) {
+          list.push({
+            projectName: sub.name,
+            projectPath: subPath,
+            category: detectedCategory
+          });
+        }
+      }
+    }
+  }
+
+  return list;
+}
+
+async function processDriveSync() {
+  if (!fs.existsSync(config.driveFolderPath)) {
+    console.log(`\n❌ Folder Drive tidak ditemukan pada path: "${config.driveFolderPath}"`);
+    console.log("👉 Pastikan Google Drive for Desktop aktif dan path pada drive-sync-config.json sudah tepat.\n");
+    return;
+  }
+
+  const projectFolders = collectProjectFolders(config.driveFolderPath);
+
+  if (projectFolders.length === 0) {
+    console.log("\nℹ️ Tidak ada subfolder proyek dengan gambar di dalam folder Drive.");
+    console.log("💡 Tips: Masukkan folder proyek dengan file gambar (.jpg / .png) ke dalam Google Drive.");
+    return;
+  }
+
+  console.log(`\n📁 Ditemukan ${projectFolders.length} folder proyek di Google Drive.`);
+
+  // Ensure target root exists
+  if (!fs.existsSync(targetImgRootDir)) {
+    fs.mkdirSync(targetImgRootDir, { recursive: true });
+  }
+
+  // Read current projects.ts
+  let projectsContent = fs.readFileSync(projectsFilePath, 'utf-8');
+  let totalNewImages = 0;
+
+  for (const proj of projectFolders) {
+    console.log(`\n🔍 Memproses proyek: "${proj.projectName}" [Kategori: ${proj.category}]...`);
+
+    const targetProjectDir = path.join(targetImgRootDir, proj.category, sanitizeFolderName(proj.projectName));
+    if (!fs.existsSync(targetProjectDir)) {
+      fs.mkdirSync(targetProjectDir, { recursive: true });
+      console.log(`   📁 Membuat folder target: "${targetProjectDir}"`);
+    }
+
+    const driveFiles = fs.readdirSync(proj.projectPath, { withFileTypes: true });
+    const imageFiles = driveFiles.filter(f => !f.isDirectory() && VALID_EXTENSIONS.includes(path.extname(f.name).toLowerCase())).map(f => f.name);
+    const videoFiles = driveFiles.filter(f => !f.isDirectory() && path.extname(f.name).toLowerCase() === '.mp4').map(f => f.name);
+
+    // Copy video files if present
+    for (const vFile of videoFiles) {
+      const vSrc = path.join(proj.projectPath, vFile);
+      const vDst = path.join(targetProjectDir, vFile);
+      if (!fs.existsSync(vDst)) {
+        fs.copyFileSync(vSrc, vDst);
+        console.log(`   🎥 Video disalin: ${vFile}`);
+      }
+    }
+
+    if (imageFiles.length === 0) {
+      console.log(`   - Belum ada file gambar di folder "${proj.projectName}".`);
+      continue;
+    }
+
+    const projectImagesAdded = [];
 
     for (const file of imageFiles) {
-      const sourcePath = path.join(driveProjectPath, file);
+      const sourcePath = path.join(proj.projectPath, file);
       const fileParsed = path.parse(file);
       const targetFileName = `${fileParsed.name}.webp`;
       const targetFilePath = path.join(targetProjectDir, targetFileName);
 
-      // Relative path from src/ for import statements
       const relPathFromSrc = path.relative(path.join(rootDir, 'src'), targetFilePath).replace(/\\/g, '/');
       const importAliasPath = `@/${relPathFromSrc}`;
 
-      // Check if image file needs conversion / copy
       let needsCopy = !fs.existsSync(targetFilePath);
       if (!needsCopy) {
         const srcStat = fs.statSync(sourcePath);
@@ -154,7 +188,7 @@ async function processDriveSync() {
       }
 
       if (needsCopy) {
-        console.log(`   ✨ Memproses gambar baru: ${file} -> ${targetFileName}`);
+        console.log(`   ✨ Mengompres gambar: ${file} -> ${targetFileName}`);
         try {
           const inputBytes = fs.readFileSync(sourcePath);
           if (config.autoConvertWebp) {
@@ -175,32 +209,109 @@ async function processDriveSync() {
       projectImagesAdded.push({
         fileName: targetFileName,
         aliasPath: importAliasPath,
-        varName: sanitizeVarName(`${driveProjectFolderName}_${fileParsed.name}_webp`)
+        varName: sanitizeVarName(`${proj.projectName}_${fileParsed.name}_webp`)
       });
     }
 
     if (projectImagesAdded.length > 0) {
       totalNewImages += projectImagesAdded.length;
-      
-      // Update projects.ts imports & renderPhotos
+
+      // Add imports to projects.ts
       for (const item of projectImagesAdded) {
         if (!projectsContent.includes(item.aliasPath)) {
-          // Add import statement at top
           const importStatement = `import ${item.varName} from "${item.aliasPath}";\n`;
           projectsContent = importStatement + projectsContent;
+        }
+      }
 
-          // Find matching project block in projects.ts to add to renderPhotos
-          const projTitleClean = driveProjectFolderName.toLowerCase().replace(/[-_]/g, ' ');
-          
-          // Pattern to find renderPhotos: [ ... ] for this project
-          // We search for project by title match or append to appropriate array
-          console.log(`   📝 Menambahkan impor dan meng-update renderPhotos di src/data/projects.ts`);
+      // Check if project exists in projects.ts
+      const projClean = proj.projectName.toLowerCase().replace(/[-_]/g, ' ').trim();
+      const projectMatches = (title) => {
+        const clean = title.toLowerCase().replace(/[-_]/g, ' ').trim();
+        return clean === projClean || clean.includes(projClean) || projClean.includes(clean);
+      };
+
+      // Match against known project titles
+      const knownProjects = [
+        { key: 'jengki', pattern: /title:\s*["']The Modern Jengki["']/i },
+        { key: 'lcalme', pattern: /title:\s*["']L['’]Calme["']/i },
+        { key: 'landscape', pattern: /title:\s*["']Zen Garden Estate["']/i }
+      ];
+
+      let matchedKey = null;
+      if (projClean.includes('jengki')) matchedKey = 'jengki';
+      else if (projClean.includes('calme')) matchedKey = 'lcalme';
+      else if (projClean.includes('landscape') || projClean.includes('cw2')) matchedKey = 'landscape';
+
+      const renderVars = projectImagesAdded.map(img => `      getMediaUrl(${img.varName})`).join(',\n');
+      const firstImageVar = `getMediaUrl(${projectImagesAdded[0].varName})`;
+
+      if (matchedKey === 'jengki') {
+        projectsContent = projectsContent.replace(
+          /(title:\s*["']The Modern Jengki["'][\s\S]*?image:\s*)[^,\n]+/,
+          `$1${firstImageVar}`
+        ).replace(
+          /(title:\s*["']The Modern Jengki["'][\s\S]*?renderPhotos:\s*\[)[\s\S]*?(\])/,
+          `$1\n${renderVars}\n    $2`
+        );
+        console.log(`   🔄 Berhasil memperbarui gambar proyek "The Modern Jengki" di projects.ts`);
+      } else if (matchedKey === 'lcalme') {
+        projectsContent = projectsContent.replace(
+          /(title:\s*["']L['’]Calme["'][\s\S]*?image:\s*)[^,\n]+/,
+          `$1${firstImageVar}`
+        ).replace(
+          /(title:\s*["']L['’]Calme["'][\s\S]*?renderPhotos:\s*\[)[\s\S]*?(\])/,
+          `$1\n${renderVars}\n    $2`
+        );
+        console.log(`   🔄 Berhasil memperbarui gambar proyek "L'Calme" di projects.ts`);
+      } else if (matchedKey === 'landscape') {
+        projectsContent = projectsContent.replace(
+          /(title:\s*["']Zen Garden Estate["'][\s\S]*?image:\s*)[^,\n]+/,
+          `$1${firstImageVar}`
+        ).replace(
+          /(title:\s*["']Zen Garden Estate["'][\s\S]*?renderPhotos:\s*\[)[\s\S]*?(\])/,
+          `$1\n${renderVars}\n    $2`
+        );
+        console.log(`   🔄 Berhasil memperbarui gambar proyek "Zen Garden Estate" di projects.ts`);
+      } else {
+        // Check if project title already in file
+        const titleRegex = new RegExp(`title:\\s*["']${proj.projectName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`, 'i');
+        if (!titleRegex.test(projectsContent)) {
+          const idMatches = [...projectsContent.matchAll(/id:\s*(\d+)/g)];
+          const maxId = idMatches.length > 0 ? Math.max(...idMatches.map(m => parseInt(m[1]))) : 0;
+          const newId = maxId + 1;
+
+          const newProjectBlock = `  {
+    id: ${newId},
+    title: "${proj.projectName}",
+    category: "${proj.category}",
+    description: "Proyek arsitektur ${proj.projectName} dengan pendekatan desain kontemporer dan fungsional.",
+    image: ${firstImageVar},
+    tags: ["Modern", "Architecture", "${proj.category}"],
+    videoUrl: "",
+    renderPhotos: [
+${renderVars}
+    ],
+    story: "Proyek ${proj.projectName} dirancang dengan filosofi keharmonisan ruang, integrasi pencahayaan alami, dan efisiensi fungsional.",
+    location: "Indonesia",
+    year: "${new Date().getFullYear()}",
+    area: "-",
+    client: "${proj.projectName}"
+  },\n`;
+
+          projectsContent = projectsContent.replace(
+            /export const projects:\s*Project\[\]\s*=\s*\[/,
+            `export const projects: Project[] = [\n${newProjectBlock}`
+          );
+          console.log(`   ✨ Berhasil mendaftarkan proyek baru "${proj.projectName}" (ID: ${newId}) ke projects.ts`);
+        } else {
+          console.log(`   📝 Proyek "${proj.projectName}" sudah terdaftar di projects.ts.`);
         }
       }
     }
   }
 
-  // Save updated projects.ts if modified
+  // Save updated projects.ts
   fs.writeFileSync(projectsFilePath, projectsContent, 'utf-8');
   console.log(`\n==========================================`);
   console.log(`🎉 Selesai! Total gambar diproses/disinkronkan: ${totalNewImages}`);

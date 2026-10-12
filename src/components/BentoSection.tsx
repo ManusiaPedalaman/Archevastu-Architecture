@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import ArchitectureImg from "../image/img/2.4.webp";
+
+const ArchitectureImg = "/image/architecture.webp";
 
 export default function BentoSection() {
   return (

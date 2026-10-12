@@ -1,23 +1,59 @@
-import rt2_3Jpg from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_3 - Photo.jpg";
-import rt2_3Webp from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_3 - Photo.webp";
-import rt2_4Jpg from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_4 - Photo.jpg";
-import rt2_4Webp from "@/image/img/Lanskap/CW2 LANDSCAPE-20260809T160238Z-1-001/CW2 LANDSCAPE/RT 2_4 - Photo.webp";
-
-import jengki1Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/1.3.webp";
-import jengki2Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/2.4.webp";
-import jengki3Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/3.2.webp";
-import jengki4Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/4.1.webp";
-import jengki5Webp from "@/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/5.1.webp";
-
-import lcalmeScene1 from "@/image/img/Residensial/L_Calme/Scene 1.webp";
-import lcalmeScene2 from "@/image/img/Residensial/L_Calme/Scene 2.webp";
-import lcalmeScene3 from "@/image/img/Residensial/L_Calme/Scene 3.webp";
-import lcalmeScene4 from "@/image/img/Residensial/L_Calme/Scene 4.webp";
-import lcalmeScene5 from "@/image/img/Residensial/L_Calme/Scene 5.webp";
-import lcalmeScene6 from "@/image/img/Residensial/L_Calme/Scene 6.webp";
-import lcalmeA01 from "@/image/img/Residensial/L_Calme/A-01.webp";
-import lcalmeA02 from "@/image/img/Residensial/L_Calme/A-02.webp";
-
+import The_Modern_Jengki_5_1_webp from "@/image/img/Residensial/The Modern Jengki/5.1.webp";
+import The_Modern_Jengki_4_1_webp from "@/image/img/Residensial/The Modern Jengki/4.1.webp";
+import The_Modern_Jengki_3_2_webp from "@/image/img/Residensial/The Modern Jengki/3.2.webp";
+import The_Modern_Jengki_2_4_webp from "@/image/img/Residensial/The Modern Jengki/2.4.webp";
+import The_Modern_Jengki_1_3_webp from "@/image/img/Residensial/The Modern Jengki/1.3.webp";
+import L_Calme_Scene_9_webp from "@/image/img/Residensial/L_Calme/Scene 9.webp";
+import L_Calme_Scene_8_1_webp from "@/image/img/Residensial/L_Calme/Scene 8_1.webp";
+import L_Calme_Scene_8_webp from "@/image/img/Residensial/L_Calme/Scene 8.webp";
+import L_Calme_Scene_7_webp from "@/image/img/Residensial/L_Calme/Scene 7.webp";
+import L_Calme_Scene_6_webp from "@/image/img/Residensial/L_Calme/Scene 6.webp";
+import L_Calme_Scene_5_webp from "@/image/img/Residensial/L_Calme/Scene 5.webp";
+import L_Calme_Scene_4_webp from "@/image/img/Residensial/L_Calme/Scene 4.webp";
+import L_Calme_Scene_3_webp from "@/image/img/Residensial/L_Calme/Scene 3.webp";
+import L_Calme_Scene_29_webp from "@/image/img/Residensial/L_Calme/Scene 29.webp";
+import L_Calme_Scene_27_webp from "@/image/img/Residensial/L_Calme/Scene 27.webp";
+import L_Calme_Scene_26_webp from "@/image/img/Residensial/L_Calme/Scene 26.webp";
+import L_Calme_Scene_25_webp from "@/image/img/Residensial/L_Calme/Scene 25.webp";
+import L_Calme_Scene_24_webp from "@/image/img/Residensial/L_Calme/Scene 24.webp";
+import L_Calme_Scene_23_webp from "@/image/img/Residensial/L_Calme/Scene 23.webp";
+import L_Calme_Scene_22_webp from "@/image/img/Residensial/L_Calme/Scene 22.webp";
+import L_Calme_Scene_21_webp from "@/image/img/Residensial/L_Calme/Scene 21.webp";
+import L_Calme_Scene_20_webp from "@/image/img/Residensial/L_Calme/Scene 20.webp";
+import L_Calme_Scene_2_webp from "@/image/img/Residensial/L_Calme/Scene 2.webp";
+import L_Calme_Scene_19_webp from "@/image/img/Residensial/L_Calme/Scene 19.webp";
+import L_Calme_Scene_18_webp from "@/image/img/Residensial/L_Calme/Scene 18.webp";
+import L_Calme_Scene_17_webp from "@/image/img/Residensial/L_Calme/Scene 17.webp";
+import L_Calme_Scene_16_webp from "@/image/img/Residensial/L_Calme/Scene 16.webp";
+import L_Calme_Scene_15_webp from "@/image/img/Residensial/L_Calme/Scene 15.webp";
+import L_Calme_Scene_14_webp from "@/image/img/Residensial/L_Calme/Scene 14.webp";
+import L_Calme_Scene_13_webp from "@/image/img/Residensial/L_Calme/Scene 13.webp";
+import L_Calme_Scene_12_webp from "@/image/img/Residensial/L_Calme/Scene 12.webp";
+import L_Calme_Scene_11_webp from "@/image/img/Residensial/L_Calme/Scene 11.webp";
+import L_Calme_Scene_10_webp from "@/image/img/Residensial/L_Calme/Scene 10.webp";
+import L_Calme_Scene_10_1_webp from "@/image/img/Residensial/L_Calme/Scene 10-1.webp";
+import L_Calme_Scene_1_webp from "@/image/img/Residensial/L_Calme/Scene 1.webp";
+import L_Calme_A_19_webp from "@/image/img/Residensial/L_Calme/A-19.webp";
+import L_Calme_A_18_webp from "@/image/img/Residensial/L_Calme/A-18.webp";
+import L_Calme_A_17_webp from "@/image/img/Residensial/L_Calme/A-17.webp";
+import L_Calme_A_16_webp from "@/image/img/Residensial/L_Calme/A-16.webp";
+import L_Calme_A_15_webp from "@/image/img/Residensial/L_Calme/A-15.webp";
+import L_Calme_A_14_webp from "@/image/img/Residensial/L_Calme/A-14.webp";
+import L_Calme_A_13_webp from "@/image/img/Residensial/L_Calme/A-13.webp";
+import L_Calme_A_12_webp from "@/image/img/Residensial/L_Calme/A-12.webp";
+import L_Calme_A_11_webp from "@/image/img/Residensial/L_Calme/A-11.webp";
+import L_Calme_A_10_webp from "@/image/img/Residensial/L_Calme/A-10.webp";
+import L_Calme_A_09_webp from "@/image/img/Residensial/L_Calme/A-09.webp";
+import L_Calme_A_08_webp from "@/image/img/Residensial/L_Calme/A-08.webp";
+import L_Calme_A_07_webp from "@/image/img/Residensial/L_Calme/A-07.webp";
+import L_Calme_A_06_webp from "@/image/img/Residensial/L_Calme/A-06.webp";
+import L_Calme_A_05_webp from "@/image/img/Residensial/L_Calme/A-05.webp";
+import L_Calme_A_04_webp from "@/image/img/Residensial/L_Calme/A-04.webp";
+import L_Calme_A_03_webp from "@/image/img/Residensial/L_Calme/A-03.webp";
+import L_Calme_A_02_webp from "@/image/img/Residensial/L_Calme/A-02.webp";
+import L_Calme_A_01_webp from "@/image/img/Residensial/L_Calme/A-01.webp";
+import CW2_LANDSCAPE_RT_2_4___Photo_webp from "@/image/img/Lanskap/CW2 LANDSCAPE/RT 2_4 - Photo.webp";
+import CW2_LANDSCAPE_RT_2_3___Photo_webp from "@/image/img/Lanskap/CW2 LANDSCAPE/RT 2_3 - Photo.webp";
 const getMediaUrl = (media: any): string => {
   if (typeof media === "string") return media;
   if (media && typeof media === "object" && "src" in media) return media.src;
@@ -47,15 +83,15 @@ export const projects: Project[] = [
     title: "The Modern Jengki",
     category: "Residensial",
     description: "Reinterpretasi kontemporer gaya arsitektur Jengki pasca-kolonial di atas lahan 60 m² yang merespons iklim tropis Yogyakarta.",
-    image: getMediaUrl(jengki1Webp),
+    image: getMediaUrl(The_Modern_Jengki_1_3_webp),
     tags: ["Jengki", "Asimetris", "Modern Tropis"],
-    videoUrl: "/image/img/Residensial/The Modern Jengki-20260809T160204Z-1-001/The Modern Jengki/ANIMASI 6S.mp4",
+    videoUrl: "",
     renderPhotos: [
-      getMediaUrl(jengki1Webp),
-      getMediaUrl(jengki2Webp),
-      getMediaUrl(jengki3Webp),
-      getMediaUrl(jengki4Webp),
-      getMediaUrl(jengki5Webp),
+      getMediaUrl(The_Modern_Jengki_1_3_webp),
+      getMediaUrl(The_Modern_Jengki_2_4_webp),
+      getMediaUrl(The_Modern_Jengki_3_2_webp),
+      getMediaUrl(The_Modern_Jengki_4_1_webp),
+      getMediaUrl(The_Modern_Jengki_5_1_webp)
     ],
     story: "The Jengki House lahir dari sebuah tantangan untuk merespons keterbatasan lahan perkotaan modern tanpa kehilangan identitas historis yang kuat. Berdiri di atas tapak seluas 60 m², proyek residensial untuk Mr. J di Yogyakarta ini merupakan sebuah selebrasi visual sekaligus reinterpretasi kontemporer terhadap arsitektur \"Jengki\"—gaya ikonik pasca-kolonial Indonesia yang terkenal dengan semangat kebebasan, bentuk-bentuk asimetris, dan eksperimentasi struktur yang berani. Desain ini mematahkan kekakuan geometri arsitektur modern konvensional. Atap pelana yang berselisih dan memiliki kemiringan ekstrem tidak hanya berfungsi secara estetika sebagai focal point yang ekspresif, tetapi juga dirancang secara fungsional untuk mengalirkan curah hujan tinggi khas iklim tropis Yogyakarta secara optimal. Fasad bangunan didominasi oleh perpaduan dinamis antara dinding panel putih yang bersih, aksen bata ekspos lengkung yang masif, serta permainan tiang-tiang struktural miring yang memberikan impresi visual yang kokoh sekaligus melayang.",
     location: "Yogyakarta, Indonesia",
@@ -134,12 +170,12 @@ export const projects: Project[] = [
     title: "Zen Garden Estate",
     category: "Lanskap",
     description: "Desain lanskap meditatif yang menggabungkan elemen air, batu, dan flora tropis eksotis.",
-    image: getMediaUrl(rt2_3Webp),
+    image: getMediaUrl(CW2_LANDSCAPE_RT_2_3___Photo_webp),
     tags: ["Zen", "Tropical", "Water"],
     videoUrl: "/videos/ANIMASI.mp4",
     renderPhotos: [
-      getMediaUrl(rt2_3Webp),
-      getMediaUrl(rt2_4Webp),
+      getMediaUrl(CW2_LANDSCAPE_RT_2_3___Photo_webp),
+      getMediaUrl(CW2_LANDSCAPE_RT_2_4___Photo_webp)
     ],
     story: "Zen Garden Estate dirancang sebagai oasis meditatif di tengah hiruk-pikuk wilayah urban. Proyek ini memadukan prinsip taman Zen Jepang kuno dengan keanekaragaman hayati vegetasi tropis Indonesia. Aliran air bertingkat dirancang secara akustik untuk menyamarkan kebisingan perkotaan di sekitarnya, sedangkan pemilihan batuan sungai andesit lokal memberikan tekstur bumi yang kuat dan abadi. Setiap sudut taman dirancang untuk memberikan sudut pandang reflektif yang unik seiring perubahan musim dan waktu.",
     location: "Sentul, Indonesia",
@@ -152,18 +188,59 @@ export const projects: Project[] = [
     title: "L'Calme",
     category: "Residensial",
     description: "Hunian modern seluas 72 m² berbasis geometri kontemporer dengan second skin kayu dan vegetasi asri di Surabaya.",
-    image: getMediaUrl(lcalmeScene1),
+    image: getMediaUrl(L_Calme_A_01_webp),
     tags: ["Minimalis", "Second Skin", "Kontemporer"],
     videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-building-interior-architecture-42036-large.mp4",
     renderPhotos: [
-      getMediaUrl(lcalmeScene1),
-      getMediaUrl(lcalmeScene2),
-      getMediaUrl(lcalmeScene3),
-      getMediaUrl(lcalmeScene4),
-      getMediaUrl(lcalmeScene5),
-      getMediaUrl(lcalmeScene6),
-      getMediaUrl(lcalmeA01),
-      getMediaUrl(lcalmeA02),
+      getMediaUrl(L_Calme_A_01_webp),
+      getMediaUrl(L_Calme_A_02_webp),
+      getMediaUrl(L_Calme_A_03_webp),
+      getMediaUrl(L_Calme_A_04_webp),
+      getMediaUrl(L_Calme_A_05_webp),
+      getMediaUrl(L_Calme_A_06_webp),
+      getMediaUrl(L_Calme_A_07_webp),
+      getMediaUrl(L_Calme_A_08_webp),
+      getMediaUrl(L_Calme_A_09_webp),
+      getMediaUrl(L_Calme_A_10_webp),
+      getMediaUrl(L_Calme_A_11_webp),
+      getMediaUrl(L_Calme_A_12_webp),
+      getMediaUrl(L_Calme_A_13_webp),
+      getMediaUrl(L_Calme_A_14_webp),
+      getMediaUrl(L_Calme_A_15_webp),
+      getMediaUrl(L_Calme_A_16_webp),
+      getMediaUrl(L_Calme_A_17_webp),
+      getMediaUrl(L_Calme_A_18_webp),
+      getMediaUrl(L_Calme_A_19_webp),
+      getMediaUrl(L_Calme_Scene_1_webp),
+      getMediaUrl(L_Calme_Scene_10_1_webp),
+      getMediaUrl(L_Calme_Scene_10_webp),
+      getMediaUrl(L_Calme_Scene_11_webp),
+      getMediaUrl(L_Calme_Scene_12_webp),
+      getMediaUrl(L_Calme_Scene_13_webp),
+      getMediaUrl(L_Calme_Scene_14_webp),
+      getMediaUrl(L_Calme_Scene_15_webp),
+      getMediaUrl(L_Calme_Scene_16_webp),
+      getMediaUrl(L_Calme_Scene_17_webp),
+      getMediaUrl(L_Calme_Scene_18_webp),
+      getMediaUrl(L_Calme_Scene_19_webp),
+      getMediaUrl(L_Calme_Scene_2_webp),
+      getMediaUrl(L_Calme_Scene_20_webp),
+      getMediaUrl(L_Calme_Scene_21_webp),
+      getMediaUrl(L_Calme_Scene_22_webp),
+      getMediaUrl(L_Calme_Scene_23_webp),
+      getMediaUrl(L_Calme_Scene_24_webp),
+      getMediaUrl(L_Calme_Scene_25_webp),
+      getMediaUrl(L_Calme_Scene_26_webp),
+      getMediaUrl(L_Calme_Scene_27_webp),
+      getMediaUrl(L_Calme_Scene_29_webp),
+      getMediaUrl(L_Calme_Scene_3_webp),
+      getMediaUrl(L_Calme_Scene_4_webp),
+      getMediaUrl(L_Calme_Scene_5_webp),
+      getMediaUrl(L_Calme_Scene_6_webp),
+      getMediaUrl(L_Calme_Scene_7_webp),
+      getMediaUrl(L_Calme_Scene_8_webp),
+      getMediaUrl(L_Calme_Scene_8_1_webp),
+      getMediaUrl(L_Calme_Scene_9_webp)
     ],
     story: "L'Calme : Manifestasi Ketenangan dalam Garis Presisi. Diambil dari bahasa Prancis yang berarti 'tenang' atau 'sang ketenangan', L'Calme dirancang bukan sekadar sebagai struktur fisik hunian, melainkan sebuah ruang perlindungan untuk menjeda hiruk-pikuk kehidupan. Berdiri di atas lahan seluas 72 m² di Surabaya, proyek residensial ini merespons iklim urban yang padat dengan menghadirkan sebuah oase mikro yang intim, damai, dan selaras dengan ritme alam di sekitarnya. Mengusung filosofi 'Pure lines, Carved into spaces!', fasad bangunan tampil memukau melalui permainan geometri kontemporer yang berani namun tetap terasa teduh. Bentuk atap asimetris yang tajam berpadu apik dengan panel-panel vertikal bermotif kayu hangat, menciptakan lapisan privasi (second skin) yang melindungi interior rumah dari terik matahari Surabaya tanpa memutus sirkulasi udara dan cahaya alami.",
     location: "Surabaya, Indonesia",
