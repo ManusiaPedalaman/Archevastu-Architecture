@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "sync-drive": "node scripts/sync-drive-images.mjs",
+    "update-web": "node scripts/update-web.mjs",
     "optimize-images": "node scripts/optimize-project-images.mjs"
   },
   "dependencies": {
