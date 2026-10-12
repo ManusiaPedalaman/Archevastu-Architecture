@@ -78,51 +78,56 @@ function ProjectContent() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                className="group flex flex-col bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden hover:border-white/30 transition-colors duration-500"
+                className="h-full"
               >
-                {/* Image Container */}
-                <div className="relative w-full aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                  <Image 
-                    src={project.image} 
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000 ease-[0.23,1,0.32,1]"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-4 left-4 z-20">
-                    <span className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] uppercase tracking-wider text-white border border-white/10">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 md:p-8 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-light mb-3 font-serif group-hover:text-white/90 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-white/50 text-sm leading-relaxed mb-6 flex-grow">
-                    {project.description}
-                  </p>
-                  
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="text-xs text-white/40 bg-white/5 px-3 py-1 rounded-full border border-white/5">
-                        {tag}
+                <Link
+                  href={`/Project/${project.id}`}
+                  className="group flex flex-col bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden hover:border-white/40 hover:bg-white/[0.04] transition-all duration-500 h-full cursor-pointer block"
+                >
+                  {/* Image Container */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden">
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                    <Image 
+                      src={project.image} 
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transform scale-100 group-hover:scale-108 transition-transform duration-700 ease-out"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] uppercase tracking-wider text-white border border-white/10">
+                        {project.category}
                       </span>
-                    ))}
+                    </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex items-center gap-4 mt-auto pt-6 border-t border-white/10 w-full">
-                    <Link href={`/Project/${project.id}`} className="flex-1 text-center border border-white/20 py-3 rounded-full text-xs font-semibold tracking-wider hover:border-white/50 transition-colors">
-                      View Details
-                    </Link>
+                  {/* Content */}
+                  <div className="p-6 md:p-8 flex flex-col flex-grow">
+                    <h3 className="text-2xl font-light mb-3 font-serif group-hover:text-white transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-white/50 text-sm leading-relaxed mb-6 flex-grow">
+                      {project.description}
+                    </p>
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="text-xs text-white/40 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-4 mt-auto pt-6 border-t border-white/10 w-full">
+                      <div className="flex-1 text-center border border-white/20 py-3 rounded-full text-xs font-semibold tracking-wider group-hover:border-white group-hover:bg-white group-hover:text-black transition-all duration-300">
+                        View Details ↗
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </AnimatePresence>
