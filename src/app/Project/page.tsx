@@ -3,15 +3,24 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { projects } from "@/data/projects";
 
 const categories = ["Semua", "Residensial", "Komersial", "Interior", "Lanskap"];
 
-export default function ProjectPage() {
+function ProjectContent() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
   const [activeCategory, setActiveCategory] = useState("Semua");
+
+  useEffect(() => {
+    if (categoryParam && categories.includes(categoryParam)) {
+      setActiveCategory(categoryParam);
+    }
+  }, [categoryParam]);
 
   const filteredProjects = projects.filter(project => 
     activeCategory === "Semua" ? true : project.category === activeCategory
@@ -122,5 +131,13 @@ export default function ProjectPage() {
 
       <Footer />
     </main>
+  );
+}
+
+export default function ProjectPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0f0f11]" />}>
+      <ProjectContent />
+    </Suspense>
   );
 }
