@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import PageLoader from "@/components/PageLoader";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -56,7 +55,6 @@ export default function RootLayout({
         className={`${outfit.variable} antialiased`}
         suppressHydrationWarning
       >
-        <PageLoader />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
