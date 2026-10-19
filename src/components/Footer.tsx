@@ -10,7 +10,7 @@ export default function Footer() {
         {/* Left Section - Logo & Description */}
         <div className="flex flex-col gap-6 max-w-sm md:max-w-md">
           <Link href="/" className="inline-block cursor-pointer">
-            <Image src={textLogoWhite} alt="ArcheVastu" className="h-[36px] md:h-[48px] w-auto opacity-90" priority />
+            <Image src={textLogoWhite} alt="ArcheVastu" className="h-[36px] md:h-[48px] w-auto opacity-90" />
           </Link>
           <p className="text-sm md:text-base text-white/50 leading-relaxed font-light">
             Crafting digital experiences with code and creativity, blending aesthetics with functionality for a seamless and impactful digital presence.

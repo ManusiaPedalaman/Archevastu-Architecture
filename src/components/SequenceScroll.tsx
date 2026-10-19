@@ -11,7 +11,8 @@ import textLogoWhite from "@/image/icon/Group 6356228.svg";
 
 const cinzel = Cinzel_Decorative({
   weight: ["400", "700", "900"],
-  subsets: ["latin"]
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export default function SequenceScroll() {
@@ -64,7 +65,24 @@ export default function SequenceScroll() {
 
   const drawFrame = (index: number) => {
     if (index === lastIndexRef.current) return;
-    const img = imagesRef.current[index - 1];
+    
+    // Find exact image or nearest available loaded frame
+    let img = imagesRef.current[index - 1];
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      for (let offset = 1; offset < 35; offset++) {
+        const prev = imagesRef.current[index - 1 - offset];
+        if (prev && prev.complete && prev.naturalWidth > 0) {
+          img = prev;
+          break;
+        }
+        const next = imagesRef.current[index - 1 + offset];
+        if (next && next.complete && next.naturalWidth > 0) {
+          img = next;
+          break;
+        }
+      }
+    }
+
     if (!img || !img.complete || img.naturalWidth === 0) return;
     
     const ctx = ctxRef.current;
@@ -88,88 +106,139 @@ export default function SequenceScroll() {
     });
   };
 
-  // Preload sequence images with async decoding and ref storage
+  // Progressive sequence loader: Frame 1 instant hero, background deferred batches for rest
   useEffect(() => {
-    const loadedImages: HTMLImageElement[] = [];
+    let isCancelled = false;
 
-    for (let i = 1; i <= frameCount; i++) {
-      const img = new window.Image();
-      img.decoding = "async";
+    // Helper for duplicate frames (frames with pattern i >= 13 && i % 5 === 3 are exact byte duplicates of i - 1)
+    const getMasterIndex = (i: number) => {
+      if (i >= 13 && i % 5 === 3) return i - 1;
+      return i;
+    };
 
-      const handleLoad = () => {
-        imagesLoadedRef.current++;
-        if (i === 1) {
-          // Render frame 1 as soon as it's available
-          drawFrame(1);
+    const loadedImages: (HTMLImageElement | null)[] = new Array(frameCount).fill(null);
+    imagesRef.current = loadedImages as HTMLImageElement[];
+
+    // 1. Immediately load and draw Frame 1
+    const frame1 = new window.Image();
+    frame1.decoding = "async";
+    frame1.src = `/image/sequence/ezgif-frame-001.jpg`;
+
+    const onFrame1Ready = () => {
+      if (isCancelled) return;
+      loadedImages[0] = frame1;
+      drawFrame(1);
+      setDisplayProgress(100);
+
+      // Graceful fast intro dismiss (avoids blocking LCP/TBT)
+      setTimeout(() => {
+        if (!isCancelled) {
+          setIsLoading(false);
+          if (typeof window !== "undefined") {
+            (window as any)._isAppLoaded = true;
+          }
+        }
+      }, 250);
+    };
+
+    frame1.onload = onFrame1Ready;
+    frame1.onerror = onFrame1Ready;
+    if (frame1.complete) {
+      onFrame1Ready();
+    }
+
+    // 2. Load immediate next frames (2-12) for quick initial scroll
+    const loadImmediateFrames = () => {
+      if (isCancelled) return;
+      for (let i = 2; i <= 12; i++) {
+        const master = getMasterIndex(i);
+        if (master !== i && loadedImages[master - 1]) {
+          loadedImages[i - 1] = loadedImages[master - 1];
+          continue;
+        }
+        const img = new window.Image();
+        img.decoding = "async";
+        const frameNumber = String(master).padStart(3, "0");
+        img.src = `/image/sequence/ezgif-frame-${frameNumber}.jpg`;
+        img.onload = () => {
+          if (!isCancelled) loadedImages[i - 1] = img;
+        };
+      }
+    };
+
+    // 3. Staged idle loader for remaining frames in small non-blocking batches
+    const loadRemainingFrames = () => {
+      let nextIndex = 13;
+      const batchSize = 6;
+
+      const scheduleBatch = () => {
+        if (isCancelled || nextIndex > frameCount) return;
+
+        const end = Math.min(nextIndex + batchSize, frameCount + 1);
+        for (let i = nextIndex; i < end; i++) {
+          const master = getMasterIndex(i);
+          if (master !== i && loadedImages[master - 1]) {
+            loadedImages[i - 1] = loadedImages[master - 1];
+            continue;
+          }
+          const img = new window.Image();
+          img.decoding = "async";
+          const frameNumber = String(master).padStart(3, "0");
+          img.src = `/image/sequence/ezgif-frame-${frameNumber}.jpg`;
+          img.onload = () => {
+            if (!isCancelled) loadedImages[i - 1] = img;
+          };
+        }
+
+        nextIndex = end;
+        if (nextIndex <= frameCount) {
+          if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+            (window as any).requestIdleCallback(scheduleBatch, { timeout: 150 });
+          } else {
+            setTimeout(scheduleBatch, 50);
+          }
         }
       };
 
-      img.onload = handleLoad;
-      img.onerror = handleLoad;
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        (window as any).requestIdleCallback(scheduleBatch, { timeout: 350 });
+      } else {
+        setTimeout(scheduleBatch, 200);
+      }
+    };
 
-      const frameNumber = i.toString().padStart(3, "0");
-      img.src = `/image/sequence/ezgif-frame-${frameNumber}.jpg`;
-      loadedImages.push(img);
-    }
-    imagesRef.current = loadedImages;
+    const timer1 = setTimeout(loadImmediateFrames, 120);
+    const timer2 = setTimeout(loadRemainingFrames, 350);
 
     return () => {
+      isCancelled = true;
+      clearTimeout(timer1);
+      clearTimeout(timer2);
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current);
       }
     };
   }, []);
 
-  useEffect(() => {
-    // Apabila sudah diload sebelumnya pada sesi SPA ini, jangan tampilkan loading lagi
-    if (!isLoading) return;
-
-    if (typeof window !== 'undefined') {
-      // Disable default browser scroll restoration so it doesn't jump down on refresh
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-      }
-      // Force scroll to top
-      window.scrollTo(0, 0);
-
-      // Flag bahwa secara global web ini sudah pernah loading per hard-refresh
-      (window as any)._isAppLoaded = true;
-    }
-
-    // Always show loading sequence on mount (e.g. on every refresh)
-    const duration = 2200; // 2.2 seconds min duration
-    const updateInterval = 25; // 25ms per tick
-    const totalTicks = duration / updateInterval;
-    let currentTick = 0;
-
-    const timer = setInterval(() => {
-      currentTick++;
-
-      // Time progress from 0 to 100%
-      const timeProgress = Math.min((currentTick / totalTicks) * 100, 100);
-
-      // Actual progress from loading images
-      const actualProgress = (imagesLoadedRef.current / frameCount) * 100;
-
-      // Display progress is the minimum of both bounds
-      const currentDisplay = Math.min(timeProgress, actualProgress);
-      setDisplayProgress(currentDisplay);
-
-      if (timeProgress >= 100 && actualProgress >= 90) {
-        clearInterval(timer);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          drawFrame(1);
-          setIsLoading(false);
-        }, 300);
-      }
-    }, updateInterval);
-
-    return () => clearInterval(timer);
-  }, [isLoading]);
-
   useMotionValueEvent(currentIndex, "change", (latest) => {
-    scheduleDraw(Math.round(latest));
+    const target = Math.round(latest);
+    scheduleDraw(target);
+
+    // Opportunistically prioritize loading frames around active scroll position
+    const start = Math.max(1, target - 2);
+    const end = Math.min(frameCount, target + 10);
+    for (let i = start; i <= end; i++) {
+      if (!imagesRef.current[i - 1]) {
+        const master = (i >= 13 && i % 5 === 3) ? i - 1 : i;
+        const img = new window.Image();
+        img.decoding = "async";
+        const frameNumber = String(master).padStart(3, "0");
+        img.src = `/image/sequence/ezgif-frame-${frameNumber}.jpg`;
+        img.onload = () => {
+          imagesRef.current[i - 1] = img;
+        };
+      }
+    }
   });
 
   // Handle window resizing without re-rendering everything

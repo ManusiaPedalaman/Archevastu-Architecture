@@ -2,18 +2,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Cinzel_Decorative } from "next/font/google";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 import avLogoWhite from "@/image/icon/Vector 6916.svg";
 import textLogoWhite from "@/image/icon/Group 6356226.svg";
-
-const cinzel = Cinzel_Decorative({ 
-  weight: ["400", "700", "900"], 
-  subsets: ["latin"] 
-});
 
 const navLinks = [
   { name: "Beranda", href: "/" },
@@ -36,7 +30,7 @@ export default function Navbar() {
       <header className="fixed top-0 left-0 w-full z-[60] flex items-center justify-between p-6 md:p-8 mix-blend-difference text-white pointer-events-none">
         
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 px-2 pointer-events-auto cursor-pointer">
+        <Link href="/" aria-label="ArcheVastu Home" className="flex items-center gap-3 px-2 pointer-events-auto cursor-pointer">
           <Image src={avLogoWhite} alt="AV Logo" className="h-10 md:h-13 w-auto" />
           {/* <Image src={textLogoWhite} alt="ArcheVastu" className="h-3.5 md:h-5 w-auto" /> */}
         </Link>
@@ -44,7 +38,8 @@ export default function Navbar() {
         {/* Mobile Hamburger Menu */}
         <button 
           onClick={() => setIsOpen(true)}
-          className="group flex md:hidden flex-col items-end gap-[6px] p-4 outline-none pointer-events-auto"
+          aria-label="Buka menu navigasi"
+          className="group flex md:hidden flex-col items-end gap-[6px] p-4 outline-none pointer-events-auto cursor-pointer"
         >
           <span className="block w-8 h-[2px] bg-white transition-all duration-300 group-hover:w-10"></span>
           <span className="block w-6 h-[2px] bg-white transition-all duration-300 group-hover:w-8"></span>
@@ -56,7 +51,7 @@ export default function Navbar() {
         Placed separately to ensure backdrop-blur glassmorphism works without blending glitches.
       */}
       <div className="fixed top-0 right-0 w-full z-50 p-6 md:p-8 hidden md:flex items-center justify-end pointer-events-none">
-        <nav className="flex items-center gap-6 text-[14px] font-medium tracking-wide pointer-events-auto">
+        <nav className="flex items-center gap-6 text-[14px] font-medium tracking-wide pointer-events-auto" aria-label="Navigasi Utama">
           {/* Glass Pill for Links */}
           <ul className="flex items-center gap-1 bg-[#161618]/60 backdrop-blur-md border border-white/10 rounded-full p-1.5 shadow-2xl">
             {navLinks.map((link, i) => {
@@ -79,26 +74,26 @@ export default function Navbar() {
           
           {/* Glass Pill for Socials */}
           <div className="flex items-center gap-4 bg-[#161618]/60 backdrop-blur-md border border-white/10 rounded-full py-3.5 px-6 shadow-2xl">
-            <a href="https://www.tiktok.com/@archevastu?_r=1&_t=ZS-95BmsxwtTRE" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
+            <a href="https://www.tiktok.com/@archevastu?_r=1&_t=ZS-95BmsxwtTRE" aria-label="TikTok ArcheVastu" target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                 <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z" />
               </svg>
             </a>
-            <a href="https://www.instagram.com/archevastu?igsh=ZmJkYWxya2o1d211" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
+            <a href="https://www.instagram.com/archevastu?igsh=ZmJkYWxya2o1d211" aria-label="Instagram ArcheVastu" target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
               </svg>
             </a>
-            <a href="https://www.linkedin.com/company/cv-archevastu/" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
+            <a href="https://www.linkedin.com/company/cv-archevastu/" aria-label="LinkedIn ArcheVastu" target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
                 <rect x="2" y="9" width="4" height="12"/>
                 <circle cx="4" cy="4" r="2"/>
               </svg>
             </a>
-            <a href="https://www.youtube.com/@archevastu?si=i5Z_QTRedZZyBPOC" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
+            <a href="https://www.youtube.com/@archevastu?si=i5Z_QTRedZZyBPOC" aria-label="YouTube ArcheVastu" target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 hover:scale-110 hover:text-[#ffffff] transition-all duration-300 flex items-center justify-center w-5 h-5">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"/>
                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>

@@ -49,9 +49,11 @@ export default function TestimonialSlider() {
             <button 
               key={i} 
               onClick={() => setIndex(i)}
-              className={`w-12 h-[2px] transition-all duration-500 hover:bg-white/70 ${i === index ? 'bg-white' : 'bg-white/20'}`}
-              aria-label={`Go to testimonial ${i + 1}`}
-            />
+              className="py-3 px-1 group cursor-pointer focus:outline-none"
+              aria-label={`Lihat testimoni ke-${i + 1}`}
+            >
+              <span className={`block w-12 h-[2px] transition-all duration-500 group-hover:bg-white/70 ${i === index ? 'bg-white' : 'bg-white/20'}`} />
+            </button>
           ))}
         </div>
       </div>

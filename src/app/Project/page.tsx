@@ -70,7 +70,7 @@ function ProjectContent() {
         {/* Project Grid */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 layout
@@ -93,7 +93,8 @@ function ProjectContent() {
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transform scale-100 group-hover:scale-108 transition-transform duration-700 ease-out"
-                      loading="lazy"
+                      priority={index === 0}
+                      loading={index === 0 ? "eager" : "lazy"}
                     />
                     <div className="absolute top-4 left-4 z-20">
                       <span className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] uppercase tracking-wider text-white border border-white/10">

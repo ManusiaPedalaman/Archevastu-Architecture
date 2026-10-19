@@ -17,9 +17,15 @@ export default function PageLoader() {
 
   useEffect(() => {
     // We only care about the absolute first render sequence (refresh/direct load).
-    // If we transition to another page via client-side routing, we do nothing.
+    // If we transition to another page via client-side routing or already loaded, we do nothing.
     if (isFirstLoad.current && pathname !== "/") {
       isFirstLoad.current = false;
+
+      if (typeof window !== "undefined" && (window as any)._isAppLoaded) {
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
 
       if (typeof window !== "undefined" && "scrollRestoration" in history) {
@@ -27,33 +33,21 @@ export default function PageLoader() {
       }
       window.scrollTo(0, 0);
 
-      // Flag globally that the browser has been fully loaded in this SPA session
-      if (typeof window !== 'undefined') {
+      // Flag globally that the browser has been loaded
+      if (typeof window !== "undefined") {
         (window as any)._isAppLoaded = true;
       }
 
-      const duration = 2000;
-      const updateInterval = 30;
-      const totalTicks = duration / updateInterval;
-      let currentTick = 0;
+      setDisplayProgress(100);
+      const timer = setTimeout(() => {
+        window.scrollTo(0, 0);
+        setIsLoading(false);
+      }, 200);
 
-      const timer = setInterval(() => {
-        currentTick++;
-        const timeProgress = Math.min((currentTick / totalTicks) * 100, 100);
-        setDisplayProgress(timeProgress);
-
-        if (timeProgress >= 100) {
-          clearInterval(timer);
-          setTimeout(() => {
-            window.scrollTo(0, 0);
-            setIsLoading(false);
-          }, 300);
-        }
-      }, updateInterval);
-
-      return () => clearInterval(timer);
+      return () => clearTimeout(timer);
     } else {
       isFirstLoad.current = false;
+      setIsLoading(false);
     }
   }, [pathname]);
 

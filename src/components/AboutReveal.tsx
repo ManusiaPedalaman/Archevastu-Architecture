@@ -5,13 +5,13 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 function Word({ children, progress, range }: { children: string, progress: MotionValue<number>, range: [number, number] }) {
   const opacity = useTransform(progress, range, [0.15, 1]);
-  const filter = useTransform(progress, range, ["blur(12px)", "blur(0px)"]);
+  const filter = useTransform(progress, range, ["blur(6px)", "blur(0px)"]);
   
   return (
     <span className="mr-3 md:mr-4 mt-2 relative inline-block">
       <motion.span 
         style={{ opacity, filter }} 
-        className="inline-block will-change-[opacity,filter]"
+        className="inline-block will-change-[opacity]"
       >
         {children}
       </motion.span>
